@@ -1,0 +1,10 @@
+we will learn flask in this series.
+
+for firstProject create virtual environment for this folder " firstProject ".
+(use command which works for you)
+cmd: python3 -m venv .venv  
+or
+cmd: python -m venv .venv
+
+which ide you are using configure ide to use this particular virtual environment otherwise ide will default to default python interpreter
+
