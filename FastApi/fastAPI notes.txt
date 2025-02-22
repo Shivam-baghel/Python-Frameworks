@@ -1,0 +1,13 @@
+
+create a virtual environment for python.
+
+install fastapi using pip : pip install fastapi[standard]
+
+To run the fast api application on the server. There are multiple commands
+	command1 : uvicorn filename:app --reload
+		Ex: uvicorn books:app --reload
+		
+		(this filename would be the file where fastapi is created and "app" could be any name given by you to call fastapi)
+	
+	command 2 : fastapi dev filename.py (this will run the server in devlopment mode)
+		Ex: fastapi dev books.py

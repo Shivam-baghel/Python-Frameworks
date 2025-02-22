@@ -1,0 +1,59 @@
+
+To create a Django Project :
+
+	type this command in cmd of the folder :
+		django-admin startproject projectName
+
+	if the above command is not working try the below one (this command is for VS code):
+		python -m django startproject projectName
+
+
+To run the Django Project:
+
+	go to the location of the manage.py file in cmd of the current project :
+		python manage.py runserver
+
+	To go to the particular location in command or terminal :
+		type "cd" with a space, followed by the name of the directory, or drag and drop the directory into CMD from File Explorer. Press "Enter."
+		Ex : cd <foldername> or cd < entire location >
+
+		Type "cd.." and press "Enter" to go back one directory.
+
+To Stop the Django server:
+	press ctrl+Break button to Stop
+
+	for windows try : ctrl+c few times
+
+
+To create you migration Schemas to migrate it afterwards:
+
+	run the below command in the location your manage.py file is present :
+		python manage.py makemigration {appname}
+		ex: python manage.py makemigration djangoProject
+
+
+To migrate all your Table Schemas in your DB:
+
+	run the below command in the location you manage.py file is present: 
+		python manage.py migrate
+
+
+To create a superuser to log in your default admin panel provided by django give below command:
+	python manage.py createsuperuser
+
+	It will ask for username
+	It will ask for email
+	It will ask for password
+
+	give the above details and your superuser will be created.
+
+	Example : PS D:\My Codes\Django\firstproject> python manage.py createsuperuser
+				Username (leave blank to use 'shivam'): admin
+				Email address: test@gmail.com
+				Password:admin
+				Password (again):admin
+
+To create app inside the django project :
+
+		run the below command in the location you manage.py file is present: 
+		python manage.py startapp appname
