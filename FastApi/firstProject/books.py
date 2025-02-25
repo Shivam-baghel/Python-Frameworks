@@ -1,13 +1,16 @@
 from fastapi import Body,FastAPI
+import uvicorn
 
 app = FastAPI()
 
 BOOKS = [
     {'title':'Title One','author':'Author One', 'category':'science'},
+    {'title':'Title One part 2','author':'Author One', 'category':'science'},
     {'title':'Title Two','author':'Author Two', 'category':'science'},
     {'title':'Title Three','author':'Author Three', 'category':'history'},
     {'title':'Title Four','author':'Author Four', 'category':'math'},
     {'title':'Title five','author':'Author Five', 'category':'english'},
+    {'title':'Title Seven','author':'Author Six', 'category':'math'},
     {'title':'Title Six','author':'Author Six', 'category':'math'}
     ]
 
@@ -59,6 +62,21 @@ async def get_books_by_param_and_query(book_author:str, category:str):
     return {'message': "book is not present", 'status code': 404}
 
 
+
+@app.get("/booksByAuthor/")
+async def get_books_author_name(book_author:str) ->list[dict]:
+    booksToReturn = []
+    for book in BOOKS:
+        if book.get('author').casefold() == book_author.casefold():
+            booksToReturn.append(book)
+            
+    if booksToReturn:
+        return booksToReturn
+    
+    return [{'message': 'book si not present', 'status code': 404}]
+
+
+
 @app.post("/books/createBook")
 async def create_book(new_book=Body()) -> dict:
     
@@ -87,3 +105,11 @@ async def delete_book(book_title:str)->dict:
             return {'message': "book got deleted"}
         
     return {'message': 'book not found', 'status code': 404}
+
+
+if __name__ == "__main__":
+    # to reload use app as an import to enable reload
+    uvicorn.run("books:app", host="0.0.0.0", port=8000, reload=True)
+    
+    # uvicorn.run(app, host="0.0.0.0", port=8000)
+
