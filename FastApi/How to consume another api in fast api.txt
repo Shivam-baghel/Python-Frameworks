@@ -1,0 +1,35 @@
+from fastapi import FastAPI
+import httpx
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class DataModel(BaseModel):
+    id: int
+    name: str
+    value: float
+
+async def fetch_data_from_api(url: str):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()
+        return response.json()
+
+@app.get("/data")
+async def get_data():
+    url = "https://api.example.com/data"
+    data = await fetch_data_from_api(url)
+    parsed_data = DataModel(**data)
+    return parsed_data
+
+@app.get("/modified_data")
+async def get_modified_data():
+    url = "https://api.example.com/data"
+    data = await fetch_data_from_api(url)
+    parsed_data = DataModel(**data)
+
+    # Modify the data
+    parsed_data.value *= 2
+    parsed_data.name = parsed_data.name.upper()
+
+    return parsed_data
