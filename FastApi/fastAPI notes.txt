@@ -1,13 +1,38 @@
 
 create a virtual environment for python.
 
+	(use command which works for you)
+	cmd: python3 -m venv .venv  
+	or
+	cmd: python -m venv .venv
+
+
 install fastapi using pip : pip install fastapi[standard]
 
 To run the fast api application on the server. There are multiple commands
-	command1 : uvicorn filename:app --reload
+	command1 : uvicorn filename:app --reload in terminal
 		Ex: uvicorn books:app --reload
-		
+		(reload makes sure that if any changes is made in project then fastapi automatically restarts)
 		(this filename would be the file where fastapi is created and "app" could be any name given by you to call fastapi)
 	
 	command 2 : fastapi dev filename.py (this will run the server in devlopment mode)
 		Ex: fastapi dev books.py
+
+	command 3 : create main function where fastapi is made to run:
+			ex:
+				app = Fastapi()
+				
+				if __name__ == "__main__":
+					import uvicorn
+					uvicorn.run(<app_name>, host= '0.0.0.0',port= 8000, debug=True)
+					
+					ex: 
+					uvicorn.run(app, host= '0.0.0.0',port= 8000, debug=True)
+				
+				use the below main function for reloading the fastapi project automatically.
+				
+				if __name__ == "__main__":
+					# to reload use app as an import string to enable reload
+					uvicorn.run("books:app", host="0.0.0.0", port=8000, reload=True)
+					
+

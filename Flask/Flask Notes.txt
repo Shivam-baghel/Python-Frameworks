@@ -8,3 +8,20 @@ cmd: python -m venv .venv
 
 which ide you are using configure ide to use this particular virtual environment otherwise ide will default to default python interpreter
 
+
+To run the flask application on the server. There are multiple commands : 
+    1 way : create a main function where flask initialised 
+        ex: 
+            app = Flask(__name__)
+            
+            if __name__ == "__main__":
+                app.run(host='0.0.0.0',port= 5555, debug=True)
+
+            run the file normally like a python file.
+    
+    2 way : run the main file through terminal : 
+        ex: 
+            flask run
+            or
+            flask –app <app_name> run
+            

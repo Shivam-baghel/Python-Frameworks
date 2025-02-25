@@ -1,16 +1,15 @@
-from fastapi import Body, FastAPI
+from fastapi import Body,FastAPI
 
 app = FastAPI()
 
 BOOKS = [
-    {"title": "Title One", "author": "Author One", "category": "science"},
-    {"title": "Title Two", "author": "Author Two", "category": "science"},
-    {"title": "Title Three", "author": "Author Three", "category": "history"},
-    {"title": "Title Four", "author": "Author Four", "category": "math"},
-    {"title": "Title five", "author": "Author Five", "category": "english"},
-    {"title": "Title Six", "author": "Author Six", "category": "math"},
-]
-
+    {'title':'Title One','author':'Author One', 'category':'science'},
+    {'title':'Title Two','author':'Author Two', 'category':'science'},
+    {'title':'Title Three','author':'Author Three', 'category':'history'},
+    {'title':'Title Four','author':'Author Four', 'category':'math'},
+    {'title':'Title five','author':'Author Five', 'category':'english'},
+    {'title':'Title Six','author':'Author Six', 'category':'math'}
+    ]
 
 @app.get("/")
 async def first_api():
@@ -62,6 +61,21 @@ async def get_books_by_param_and_query(book_author: str, category: str):
     return {"message": "book is not present", "status code": 404}
 
 
+
+@app.get("/booksByAuthor/")
+async def get_books_author_name(book_author:str) ->list[dict]:
+    booksToReturn = []
+    for book in BOOKS:
+        if book.get('author').casefold() == book_author.casefold():
+            booksToReturn.append(book)
+            
+    if booksToReturn:
+        return booksToReturn
+    
+    return [{'message': 'book si not present', 'status code': 404}]
+
+
+
 @app.post("/books/createBook")
 async def create_book(new_book=Body()) -> dict:
 
@@ -87,7 +101,7 @@ async def delete_book(book_title: str) -> dict:
     for book in BOOKS:
         if book.get("title").casefold() == book_title.casefold():
             BOOKS.remove(book_title)
-
-            return {"message": "book got deleted"}
-
-    return {"message": "book not found", "status code": 404}
+            
+            return {'message': "book got deleted"}
+        
+    return {'message': 'book not found', 'status code': 404}
