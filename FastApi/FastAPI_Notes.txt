@@ -36,3 +36,24 @@ To run the fast api application on the server. There are multiple commands
 					uvicorn.run("books:app", host="0.0.0.0", port=8000, reload=True)
 					
 
+for encrypting passwords or storing hashed password we need to hash or encrypt the password, lets learn how to do that.
+
+	install passlib and correcct version of bcrypt that will go with passlib
+
+	Ex: pip install passlib (for installing passlib)
+		pip install bcrypt==4.0.1 (for installing bcrypt)
+
+	import CryptContext from passlib.context
+	create variable bycrypt_context= CryptContext(schemes=['bcrypt'], deprecated='auto')
+
+	to encrypt use bycrypt_context.hash("The value you want to hash")
+
+
+for Jwt 
+	install jwt pacakge from pip
+	EX:  pip install "python-jose[cryptography]"
+
+	then from jose import jwt
+	
+
+	
