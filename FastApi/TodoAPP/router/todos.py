@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from database import  db_dependency
 from .auth import get_current_user
 
+from database import db_dependency
 
 
 router = APIRouter()
@@ -19,8 +20,8 @@ user_dependency = Annotated[dict, Depends(get_current_user)]
 
 class TodoRequest(BaseModel):
     title: str = Field(min_length=3)
-    description : str = Field(max_length=50)
-    priority: int = Field(gt=0,lt=6)
+    description: str = Field(max_length=50)
+    priority: int = Field(gt=0, lt=6)
     complete: bool
 
 
@@ -72,13 +73,13 @@ async def update_todo(user: user_dependency,
     
     todo_model = db.query(Todos).filter(Todos.id == todo_id).filter(Todos.owner_id == user.get('id')).first()
     if todo_model is None:
-        raise HTTPException(status_code=404, detail='Todo not found.')
-        
+        raise HTTPException(status_code=404, detail="Todo not found.")
+
     todo_model.title = todo_request.title
     todo_model.description = todo_request.description
     todo_model.priority = todo_request.priority
     todo_model.complete = todo_request.complete
-    
+
     db.add(todo_model)
     db.commit()
     
