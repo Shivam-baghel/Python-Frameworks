@@ -3,9 +3,9 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
 
 
 class Users(Base):
-    __tablename__ = 'users'
-    
-    id = Column(Integer, primary_key=True, index= True)
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True)
     username = Column(String, unique=True)
     first_name = Column(String)
@@ -16,8 +16,8 @@ class Users(Base):
 
 
 class Todos(Base):
-    __tablename__ = 'todos' # this is way to sqlalchemy to name the table in sql lite
-    
+    __tablename__ = "todos"  # this is way to sqlalchemy to name the table in sql lite
+
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     description = Column(String)

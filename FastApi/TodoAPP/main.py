@@ -1,10 +1,8 @@
-from fastapi import  FastAPI
-from router import auth,todos, admin, users
+from fastapi import FastAPI
+from router import auth, todos, admin, users
 import model.models as models
 from database import engine
 import uvicorn
-
-
 
 
 app = FastAPI()
@@ -18,4 +16,4 @@ app.include_router(admin.router)
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app",host='0.0.0.0', reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", reload=True)
