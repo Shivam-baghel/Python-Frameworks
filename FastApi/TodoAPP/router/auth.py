@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from model.models import Users
-from database import db_dependency
+from TodoAPP.helper.database import db_dependency
 from passlib.context import CryptContext
 from starlette import status
 from fastapi.security import (
@@ -11,7 +11,8 @@ from fastapi.security import (
     OAuth2PasswordRequestForm,
     OAuth2AuthorizationCodeBearer,
 )
-from jose import jwt, JWTError
+import jwt
+from jwt import PyJWTError
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -57,13 +58,13 @@ def create_access_token(username: str, userId: int, role: str, expiresDelta: tim
     expires = datetime.now(timezone.utc) + expiresDelta
     encode.update({"exp": expires})
 
-    return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(payload=encode, key=SECRET_KEY, algorithm=ALGORITHM)
 
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
 
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
+        payload = jwt.decode(jwt=token, key=SECRET_KEY, algorithms=ALGORITHM)
         username: str = payload.get("sub")
         userId: int = payload.get("id")
         userRole: str = payload.get("role")
@@ -76,7 +77,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
 
         return {"username": username, "id": userId, "role": userRole}
 
-    except JWTError:
+    except PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="could not validate user."
         )
@@ -105,7 +106,9 @@ async def login_for_access_token(
 ):
 
     user = authenticate_user(form_data.username, form_data.password, db)
-
+    
+    var: list[int] = [1,2,3]
+    
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="could not validate user."

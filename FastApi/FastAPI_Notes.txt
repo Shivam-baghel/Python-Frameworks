@@ -42,11 +42,15 @@ for encrypting passwords or storing hashed password we need to hash or encrypt t
 
 	Ex: pip install passlib (for installing passlib)
 		pip install bcrypt==4.0.1 (for installing bcrypt)
+	
+	or pip install passlib[bcrypt]
 
 	import CryptContext from passlib.context
 	create variable bycrypt_context= CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 	to encrypt use bycrypt_context.hash("The value you want to hash")
+	to verify user bycrypt_context.verify("normal value", "hashed value")
+	(this will verify normal and hashed value are same or not)
 
 
 for Jwt 
@@ -54,6 +58,12 @@ for Jwt
 	EX:  pip install "python-jose[cryptography]"
 
 	then from jose import jwt
+
+	or you can use pyjwt
+	Ex: pip install pyjwt
+
+
+	
 	
 
 	

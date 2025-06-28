@@ -5,7 +5,7 @@ from starlette import status
 
 from model.models import Users
 from sqlalchemy.orm import Session
-from database import db_dependency
+from TodoAPP.helper.database import db_dependency
 from .auth import get_current_user
 from passlib.context import CryptContext
 
@@ -31,7 +31,7 @@ async def get_user(user: user_dependency, db: db_dependency):
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
 
-    return db.query(Users).filter(Users.owner_id == user.get("id")).first()
+    return db.query(Users).filter(Users.id == user.get("id")).first()
 
 
 @router.put("/change_password", status_code=status.HTTP_204_NO_CONTENT)

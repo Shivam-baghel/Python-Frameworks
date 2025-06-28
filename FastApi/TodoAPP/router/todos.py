@@ -5,13 +5,13 @@ from starlette import status
 
 from model.models import Todos
 from sqlalchemy.orm import Session
-from database import db_dependency
+from TodoAPP.helper.database import db_dependency
 from .auth import get_current_user
 
-from database import db_dependency
+from TodoAPP.helper.database import db_dependency
 
 
-router = APIRouter()
+router = APIRouter(tags=["todo"])
 
 
 user_dependency = Annotated[dict, Depends(get_current_user)]
