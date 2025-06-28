@@ -17,7 +17,6 @@ Activate the virtual environment for the project
 
 
 Install Dependencies: If your project has a requirements.txt file, you can install the required packages using:
-
 	pip install -r requirements.txt
 
 *Generate the requirements.txt File: Run the following command:
